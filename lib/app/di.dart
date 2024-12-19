@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:quizlet_xspin/languages/languages_service.dart';
+import 'package:quizlet_xspin/theme/theme_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -36,5 +38,9 @@ final class DependencyInjection {
       final iOSDeviceInfo = await deviceInfoPlugin.iosInfo;
       getIt.registerSingleton(iOSDeviceInfo);
     }
+    getIt.registerSingleton<ThemeService>(ThemeService());
+    final languageService = LanguageService();
+    await languageService.loadSavedLanguage();
+    GetIt.instance.registerSingleton<LanguageService>(languageService);
   }
 }

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:quizlet_xspin/views/index/index.dart';
+import 'package:get_it/get_it.dart';
+import 'package:quizlet_xspin/app/di.dart';
+import 'package:quizlet_xspin/languages/languages_service.dart';
+import 'package:quizlet_xspin/theme/theme_service.dart';
+import 'package:quizlet_xspin/views/auth/splash/splash.view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DependencyInjection.init();
+  await Future.delayed(const Duration(seconds: 1));
   runApp(const MyApp());
 }
 
@@ -12,29 +18,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: IndexPage(),
+    final themeService = getIt<ThemeService>();
+    final languageService = GetIt.instance<LanguageService>();
+    return AnimatedBuilder(
+      animation: themeService,
+      builder: (context, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          locale: languageService.locale,
+          theme: themeService.currentTheme,
+          home: SplashView(),
+        );
+      },
     );
   }
 }

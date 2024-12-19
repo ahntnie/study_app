@@ -4,9 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quizlet_xspin/base/base.page.dart';
 import 'package:quizlet_xspin/constants/app_color.dart';
 import 'package:quizlet_xspin/constants/app_fontsize.dart';
+import 'package:quizlet_xspin/languages/string_extension.dart';
+import 'package:quizlet_xspin/viewmodel/index.vm.dart';
+import 'package:quizlet_xspin/viewmodel/user_vm.dart';
+import 'package:quizlet_xspin/views/auth/profile/widget/button.widget.dart';
+import 'package:quizlet_xspin/views/auth/profile/widget/choose_language.widget.dart';
+import 'package:quizlet_xspin/views/auth/profile/widget/selection.widget.dart';
+import 'package:quizlet_xspin/views/auth/profile/widget/user.widget.dart';
+import 'package:stacked/stacked.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage(
+      {super.key, required this.indexViewModel, required this.userViewModel});
+  final IndexViewModel indexViewModel;
+  final UserViewModel userViewModel;
 
   @override
   State<ProfilePage> createState() => _HomePageState();
@@ -15,128 +26,77 @@ class ProfilePage extends StatefulWidget {
 class _HomePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-        floating: FloatingActionButton(
-          backgroundColor: AppColor.extraColor.withOpacity(0.3),
-          onPressed: () {},
-          child: Icon(Icons.edit),
-        ),
-        title: 'Profile',
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment
-                  .stretch, // Đảm bảo phần tử bên trong có toàn bộ chiều rộng
+    return ViewModelBuilder.reactive(
+        disposeViewModel: false,
+        viewModelBuilder: () => widget.userViewModel,
+        onViewModelReady: (viewModel) async {
+          await viewModel.loadUser();
+          viewModel.viewContext = context;
+        },
+        builder: (context, viewModel, child) {
+          return BasePage(
+            onTap: () {
+              viewModel.showLogOut(context);
+            },
+            // locationFloating: FloatingActionButtonLocation.startTop,
+            showLogout: true,
+            title: 'profile'.tr(),
+            body: Column(
               children: [
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundImage: NetworkImage(
-                            'https://mandalay.com.vn/wp-content/uploads/2023/06/co-4-la-may-man-avatar-dep-34.jpg',
-                            scale: 1),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Test abc',
-                        style: GoogleFonts.aBeeZee(
-                            fontSize: AppFontSize.sizeMedium),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start, // Căn trái cho "Tên người dùng"
-                    children: [
-                      Text(
-                        'Tên người dùng',
-                        style: GoogleFonts.aBeeZee(
-                            fontSize: AppFontSize.sizeSmall,
-                            fontWeight: FontWeight.w800),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1.5),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          'Test sabc',
-                          style: GoogleFonts.aBeeZee(
-                              fontSize: AppFontSize.sizeSmall),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Email',
-                        style: GoogleFonts.aBeeZee(
-                            fontSize: AppFontSize.sizeSmall,
-                            fontWeight: FontWeight.w800),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1.5),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          'test@gmail.com',
-                          style: GoogleFonts.aBeeZee(
-                              fontSize: AppFontSize.sizeSmall),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'SĐT',
-                        style: GoogleFonts.aBeeZee(
-                            fontSize: AppFontSize.sizeSmall,
-                            fontWeight: FontWeight.w800),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1.5),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          '0909889988',
-                          style: GoogleFonts.aBeeZee(
-                              fontSize: AppFontSize.sizeSmall),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                Expanded(
+                    child: ListView(
+                  children: [
+                    UserInfo(
+                      nameUser: viewModel.data?.nameUser ?? '',
+                      phone: viewModel.data?.phone ?? '',
+                      uidUser: viewModel.data?.maNguoiDung ?? '',
+                    ),
+                    SectionTitle(title: 'settings'.tr()),
+                    ButtonWidget(
+                      showLead: false,
+                      onTap: () {},
+                      icon: Icons.nights_stay,
+                      color: Colors.purple,
+                      title: 'displaymode'.tr(),
+                    ),
+                    ButtonWidget(
+                      onTap: () {
+                        showLanguageDialog(context);
+                      },
+                      icon: Icons.language,
+                      color: Colors.blue,
+                      title: 'language'.tr(),
+                    ),
+                    SectionTitle(title: 'hotline'.tr()),
+                    ButtonWidget(
+                      onTap: () {},
+                      icon: Icons.language,
+                      color: Colors.orange,
+                      title: 'Website',
+                    ),
+                    ButtonWidget(
+                      onTap: () {},
+                      icon: Icons.facebook,
+                      color: Colors.blue,
+                      title: 'Facebook',
+                    ),
+                    ButtonWidget(
+                      onTap: () {},
+                      icon: Icons.phone,
+                      color: Colors.blue,
+                      title: 'Zalo',
+                    ),
+                    ButtonWidget(
+                      onTap: () {},
+                      icon: Icons.telegram,
+                      color: Colors.blue,
+                      title: 'Telegram',
+                    ),
+                  ],
+                ))
               ],
             ),
-          ),
-        ));
+          );
+        });
   }
 }

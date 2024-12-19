@@ -41,11 +41,33 @@ dependencies:
   device_info_plus: ^11.0.0
   stacked: ^3.4.3
   carousel_slider: ^5.0.0
+  crystal_navigation_bar: ^1.0.2
+  awesome_dialog: ^3.2.1
+  flutter_card_swiper: ^7.0.2
+  iconly: ^1.0.1
+  flutter_tts: ^4.2.0
+  lottie: ^3.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+  flutter_native_splash: ^2.4.3
 
+flutter_native_splash:
+  color: "#243B55"
+  image: assets/logo_app.png
+  android: true
+  ios: true
+  web: false 
+  android_gravity: center 
+  ios_content_mode: center
+  fullscreen: true 
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo_app.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -66,6 +88,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/languages/en.json
+    - assets/languages/vi.json
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

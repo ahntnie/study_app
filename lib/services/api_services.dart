@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:quizlet_xspin/constants/api.dart';
 
 class ApiService {
   final Dio dio = Dio(BaseOptions(
@@ -89,6 +90,31 @@ class ApiService {
       return response;
     } catch (e) {
       throw Exception('GET request error: $e');
+    }
+  }
+
+  Future<Response> postRequest(String url,
+      {Map<String, dynamic>? queryParameters}) async {
+    try {
+      Response response = await dio.post(
+        url,
+        data: queryParameters,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'hoctuvung_token': API.TOKEN,
+          },
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500; // Allow all status codes below 500
+          },
+        ),
+      );
+      response =
+          await _handleRedirect(response, queryParameters: queryParameters);
+      return response;
+    } catch (e) {
+      throw Exception('POST request error: $e');
     }
   }
 
