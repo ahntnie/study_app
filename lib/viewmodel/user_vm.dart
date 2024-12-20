@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quizlet_xspin/app/app_sp.dart';
 import 'package:quizlet_xspin/app/app_sp_key.dart';
 import 'package:quizlet_xspin/constants/app_color.dart';
+import 'package:quizlet_xspin/languages/string_extension.dart';
 import 'package:quizlet_xspin/models/user.model.dart';
 import 'package:quizlet_xspin/request/api_request.dart';
 import 'package:quizlet_xspin/viewmodel/index.vm.dart';
@@ -42,17 +43,11 @@ class UserViewModel extends BaseViewModel {
           MaterialPageRoute(builder: (context) => const IndexPage()),
         );
       } else {
-        faildDialog(
-            context,
-            'Tài khoản không tồn tại hoặc mật khẩu không chính xác',
-            'Đăng nhập thất bại');
+        faildDialog(context, 'notexist'.tr(), 'loginfaild'.tr());
       }
     } catch (e) {
       print('Login failed: $e');
-      faildDialog(
-          context,
-          'Có lỗi xảy ra trong quá trình đăng nhập, vui lòng thử lại sau',
-          'Đăng nhập thất bại');
+      faildDialog(context, 'errorlogin'.tr(), 'loginfaild'.tr());
     }
     setBusy(false);
     notifyListeners();
@@ -65,28 +60,21 @@ class UserViewModel extends BaseViewModel {
       if (paw != rePaw) {
         faildDialog(
           context,
-          'Mật khẩu và xác nhận mật khẩu không trùng khớp',
-          'Đăng ký thất bại',
+          'pwnotmatch'.tr(),
+          'signupfaild'.tr(),
         );
         setBusy(false);
-        return; // Dừng quá trình đăng ký nếu không khớp
+        return;
       }
       data = await apiRequest.SIGNUP(phone: phone, pw: paw, name: name);
       if (data != null) {
-        successDialog(
-            context, 'Đăng ký ứng dụng thành công', 'Đăng ký thành công');
+        successDialog(context, 'successsignupapp'.tr(), 'successsignup'.tr());
       } else {
-        faildDialog(
-            context,
-            'Tài khoản đã tồn tại hoặc thông tin không chính xác',
-            'Đăng ký thất bại');
+        faildDialog(context, 'exist'.tr(), 'signupfaild'.tr());
       }
     } catch (e) {
       print('SignUp failed: $e');
-      faildDialog(
-          context,
-          'Có lỗi xảy ra trong quá trình đăng ký, vui lòng thử lại sau',
-          'Đăng ký thất bại');
+      faildDialog(context, 'errorsignup'.tr(), 'signupfaild'.tr());
     }
     setBusy(false);
     notifyListeners();
@@ -98,10 +86,10 @@ class UserViewModel extends BaseViewModel {
       dialogType: DialogType.question,
       animType: AnimType.topSlide,
       showCloseIcon: true,
-      title: 'Thông báo!',
-      desc: 'Bạn có muốn đăng xuất ứng dụng?',
+      title: 'notifi'.tr(),
+      desc: 'descnoti'.tr(),
       btnCancelOnPress: () {},
-      btnCancelText: 'Hủy',
+      btnCancelText: 'cancel'.tr(),
       btnOkOnPress: () {
         AppSP.set(AppSPKey.phone, '');
         AppSP.set(AppSPKey.password, '');
@@ -110,7 +98,7 @@ class UserViewModel extends BaseViewModel {
           MaterialPageRoute(builder: (context) => const LoginView()),
         );
       },
-      btnOkText: 'Có',
+      btnOkText: 'yes'.tr(),
     ).show();
   }
 
@@ -124,7 +112,7 @@ class UserViewModel extends BaseViewModel {
       desc: desc,
       btnOkColor: AppColor.selectColor,
       btnOkOnPress: () {},
-      btnOkText: 'Thử lại',
+      btnOkText: 'try'.tr(),
     ).show();
   }
 
@@ -142,7 +130,7 @@ class UserViewModel extends BaseViewModel {
           MaterialPageRoute(builder: (context) => const LoginView()),
         );
       },
-      btnOkText: 'Xác nhận',
+      btnOkText: 'confirm'.tr(),
     ).show();
   }
 }

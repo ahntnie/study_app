@@ -84,41 +84,20 @@ class _DataLibraryViewState extends State<DataLibraryView> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FlashcardItem(
-                          title: 'flashcard'.tr(),
-                          icon: Icons.book,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FullScreenFlashcardsPage(
-                                  lstFlashCard: widget.viewModel.lstFlashCard,
-                                  initialIndex: 0,
-                                ),
-                              ),
-                            );
-                          },
+                  FlashcardItem(
+                    title: 'flashcard'.tr(),
+                    icon: Icons.book,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FullScreenFlashcardsPage(
+                            lstFlashCard: widget.viewModel.lstFlashCard,
+                            initialIndex: 0,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: FlashcardItem(
-                          title: 'addword'.tr(),
-                          icon: Icons.add_box_sharp,
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => InfoForm(
-                                          idListCard: widget.idListCard,
-                                          viewModel: viewModel,
-                                        )));
-                          },
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                   FlashcardItem(
                     title: 'choose'.tr(),
@@ -153,6 +132,19 @@ class _DataLibraryViewState extends State<DataLibraryView> {
                     },
                   ),
                   SearchWidget(),
+                  FlashcardItem(
+                    title: 'addword'.tr(),
+                    icon: Icons.add_box_sharp,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InfoForm(
+                                    idListCard: widget.idListCard,
+                                    viewModel: viewModel,
+                                  )));
+                    },
+                  ),
                   AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
                       child: Column(

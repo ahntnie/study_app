@@ -11,8 +11,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.LOGIN}?SoDienThoai=$phone&MatKhau=$pw');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}'); // In dữ liệu trả về từ API
-
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -39,8 +37,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.SIGNUP}?SoDienThoai=$phone&MatKhau=$pw&TenNguoiDung=$name');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}'); // In dữ liệu trả về từ API
-
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -68,7 +64,6 @@ class API_REQUEST {
     try {
       final response = await ApiService()
           .postRequest('${API.LOCAL_HOST}${API.GET_LIST_CARD}?idUser=$idUser');
-      print('Response: ${response.data}');
       if (response.statusCode == API.STATUS_CODE) {
         List<dynamic> data = response.data;
         LstFlashCardModels =
@@ -90,7 +85,6 @@ class API_REQUEST {
           '${API.LOCAL_HOST}${API.GET_FLASH_CARD}?idListCard=$idListCard');
       if (response.statusCode == API.STATUS_CODE) {
         if (response.data is Map && response.data['Status'] == 0) {
-          print('rỗng');
           return lstFlashCard;
         } else {
           List<dynamic> data = response.data;
@@ -113,7 +107,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.DELETE_LIST_FLASHCARD}?idUser=$idUser&idLstCard=$idLstCard');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -141,7 +134,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.UPDATE_NAME_LIST_FLASHCARD}?idLstCard=$idLstCard&nameLstCard=$newName');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -170,7 +162,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.UPDATE_NAME_FLASHCARD}?idFlashCard=$idFlashCard&newEnglish=$newEnglish&newVietNam=$newVietNam');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -197,7 +188,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.DELETE_FLASHCARD}?idFlashCard=$idFlashCard');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -226,7 +216,6 @@ class API_REQUEST {
     final response = await ApiService().postRequest(
         '${API.LOCAL_HOST}${API.CREATE_LIST_FLASH_CARD}?idUser=$idUser&idLstCard=$idLstCard&nameLstCard=$nameLstCard&share=$share');
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];
@@ -271,7 +260,6 @@ class API_REQUEST {
     );
 
     if (response.statusCode == API.STATUS_CODE) {
-      print('Response: ${response.data}');
       final data = response.data;
       if (data != null) {
         final status = data['Status'];

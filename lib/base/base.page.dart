@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quizlet_xspin/constants/app_color.dart';
 import 'package:quizlet_xspin/theme/theme_service.dart';
-import 'package:quizlet_xspin/views/auth/login/login.view.dart';
 
 class BasePage extends StatefulWidget {
   final bool showLogo;
@@ -64,7 +62,6 @@ class _BasePageState extends State<BasePage> {
           // Màu động dựa trên theme
           final backgroundColor = isDarkMode ? Colors.black : Colors.white;
           final appBarColor = isDarkMode ? Colors.grey[900] : Colors.blue;
-          final iconColor = isDarkMode ? Colors.white : Colors.black;
           return Scaffold(
             // extendBody: true,
             floatingActionButton: widget.floating,
@@ -98,8 +95,7 @@ class _BasePageState extends State<BasePage> {
                               color: AppColor.extraColor,
                               size: 30,
                             ),
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                           ),
                         if (widget.showAdd)
                           IconButton(

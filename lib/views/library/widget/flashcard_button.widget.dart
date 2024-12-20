@@ -30,9 +30,11 @@ class FlashcardItem extends StatelessWidget {
         color: colorCard,
         elevation: 2,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
+            // image: DecorationImage(
+            //     image: AssetImage('assets/flashcard.png'), fit: BoxFit.fill),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Row(

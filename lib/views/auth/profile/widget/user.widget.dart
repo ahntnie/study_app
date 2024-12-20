@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:quizlet_xspin/constants/app_color.dart';
 import 'package:quizlet_xspin/constants/app_fontsize.dart';
-import 'package:quizlet_xspin/theme/theme_service.dart';
 
 class UserInfo extends StatelessWidget {
   final String nameUser;
@@ -13,13 +10,6 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final themeService = GetIt.instance<ThemeService>();
-    // final isDarkMode = themeService.isDarkMode;
-
-    // final colorCard = isDarkMode
-    //     ? const Color.fromARGB(255, 45, 43, 43)
-    //     : AppColor.extraColor;
-
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Card(

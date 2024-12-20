@@ -6,7 +6,6 @@ import 'package:quizlet_xspin/languages/string_extension.dart';
 import 'package:quizlet_xspin/theme/theme_service.dart';
 import 'package:quizlet_xspin/viewmodel/index.vm.dart';
 import 'package:quizlet_xspin/viewmodel/lst_flash_card.vm.dart';
-import 'package:quizlet_xspin/views/student/study.page.dart';
 
 class MenuWidget extends StatefulWidget {
   const MenuWidget(
@@ -54,11 +53,16 @@ class _MenuWidgetState extends State<MenuWidget> {
                     Icons.book, 'readbook'.tr(), () {}, AppColor.lightRed),
                 _buildMenuItem(Icons.format_bold_sharp, 'grammar'.tr(), () {},
                     AppColor.green),
-                _buildMenuItem(Icons.check, 'test'.tr(), () {}, AppColor.pink),
-                _buildMenuItem(Icons.check, 'test'.tr(), () {}, AppColor.pink),
-                _buildMenuItem(Icons.check, 'test'.tr(), () {}, AppColor.pink),
-                _buildMenuItem(Icons.check, 'test'.tr(), () {}, AppColor.pink),
-                _buildMenuItem(Icons.check, 'test'.tr(), () {}, AppColor.pink),
+                _buildMenuItem(
+                    Icons.android, 'test'.tr(), () {}, AppColor.pink),
+                _buildMenuItem(
+                    Icons.android, 'test'.tr(), () {}, AppColor.pink),
+                _buildMenuItem(
+                    Icons.android, 'test'.tr(), () {}, AppColor.pink),
+                _buildMenuItem(
+                    Icons.android, 'test'.tr(), () {}, AppColor.pink),
+                _buildMenuItem(
+                    Icons.android, 'test'.tr(), () {}, AppColor.pink),
               ],
             ),
           ),

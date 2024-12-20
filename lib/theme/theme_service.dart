@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:quizlet_xspin/app/app_sp.dart';
 
 class ThemeService extends ChangeNotifier {
   bool _isDarkMode = false;
@@ -20,13 +20,11 @@ class ThemeService extends ChangeNotifier {
   }
 
   Future<void> _loadThemeFromPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    _isDarkMode = AppSP.get('isDarkMode') ?? false;
     notifyListeners();
   }
 
   Future<void> _saveThemeToPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isDarkMode', _isDarkMode);
+    await AppSP.set('isDarkMode', _isDarkMode);
   }
 }

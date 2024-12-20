@@ -11,7 +11,7 @@ class AppColor {
   static const Color navun = Color(0xFF333333);
   static const Color extraColor = Colors.white;
   static Color selectColor = Colors.red.shade700;
-  static const Color lightRed = Color.fromARGB(255, 226, 105, 105);
+  static const Color lightRed = Color(0xFFE26969);
   static const Color darkColor = Colors.black;
   static const Color unSelectColor = Colors.grey;
   static const Color oceanColor = Colors.blueAccent;

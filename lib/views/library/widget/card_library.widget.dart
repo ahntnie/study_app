@@ -148,10 +148,9 @@ void _showOptionsBottomSheet(
                 ),
               ),
               onTap: () async {
-                await viewModel.DeleteFlashCard(idFlashCard);
+                await viewModel.DeleteFlashCard(context, idFlashCard);
                 await viewModel.getFlashCard(idListCard);
-                Navigator.pop(context);
-                // Logic xóa ở đây
+                // Navigator.pop(context);
               },
             ),
             Divider(height: 1),

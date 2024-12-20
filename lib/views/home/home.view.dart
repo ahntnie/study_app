@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quizlet_xspin/base/base.page.dart';
-import 'package:quizlet_xspin/base/nav_bar.page.dart';
 import 'package:quizlet_xspin/constants/app_color.dart';
 import 'package:quizlet_xspin/languages/string_extension.dart';
 import 'package:quizlet_xspin/viewmodel/index.vm.dart';

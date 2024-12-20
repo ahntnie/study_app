@@ -154,7 +154,6 @@ void _showOptionsBottomSheet(
               ),
               onTap: () async {
                 Navigator.pop(context);
-
                 showUpdateLibrary(context, viewModel, data, idListFlashCard);
               },
             ),
@@ -171,9 +170,9 @@ void _showOptionsBottomSheet(
               ),
               onTap: () async {
                 await viewModel.DeleteListFlashCard(
-                    AppSP.get(AppSPKey.idUser), idListFlashCard);
+                    context, AppSP.get(AppSPKey.idUser), idListFlashCard);
                 await viewModel.getListFlashCard();
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
             ),
             Divider(height: 1),

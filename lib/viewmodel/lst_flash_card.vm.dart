@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:quizlet_xspin/app/app_sp.dart';
 import 'package:quizlet_xspin/app/app_sp_key.dart';
+import 'package:quizlet_xspin/constants/app_color.dart';
+import 'package:quizlet_xspin/languages/string_extension.dart';
 import 'package:quizlet_xspin/models/flash_card.model.dart';
 import 'package:quizlet_xspin/models/lst_flash_card.model.dart';
 import 'package:quizlet_xspin/request/api_request.dart';
@@ -45,7 +48,6 @@ class ListFlashCardViewModel extends BaseViewModel {
   Future<void> getCard(String idListCard) async {
     setBusy(true);
     lstFlashCard = await apiRequest.GET_FLASH_CARD(idListCard: idListCard);
-    print('ListData : ${lstFlashCard.length}');
     setBusy(false);
     notifyListeners();
   }
@@ -53,7 +55,6 @@ class ListFlashCardViewModel extends BaseViewModel {
   Future<void> getFlashCard(String idListCard) async {
     setBusy(true);
     lstFlashCard = await apiRequest.GET_FLASH_CARD(idListCard: idListCard);
-    print('ListData : ${lstFlashCard.length}');
     setBusy(false);
     notifyListeners();
     if (lstFlashCard.isNotEmpty) {
@@ -71,9 +72,9 @@ class ListFlashCardViewModel extends BaseViewModel {
     );
     setBusy(false);
     if (isSuccess) {
-      print("Thêm thẻ Flash thành công");
+      print("addsuccess".tr());
     } else {
-      print("Thêm thẻ Flash thất bại");
+      print("addfaild".tr());
     }
     notifyListeners();
   }
@@ -84,7 +85,7 @@ class ListFlashCardViewModel extends BaseViewModel {
         idUser: idUser,
         idLstCard: maListCard.text,
         nameLstCard: nameListCardCreate.text,
-        share: shareCreate ?? '');
+        share: shareCreate);
     setBusy(false);
     notifyListeners();
   }
@@ -110,21 +111,47 @@ class ListFlashCardViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> DeleteListFlashCard(String idUser, String idLstFlashCard) async {
+  Future<void> DeleteListFlashCard(
+      BuildContext context, String idUser, String idLstFlashCard) async {
     setBusy(true);
     data = await apiRequest.DELETE_LIST_FLASHCARD(
       idUser: idUser,
       idLstCard: idLstFlashCard,
     );
+    if (data == null) {
+      showDialog(context, 'cantdel'.tr(), 'delfaild'.tr(), 'try'.tr(),
+          DialogType.error, AppColor.selectColor);
+    } else {
+      showDialog(context, 'dellibsuccess'.tr(), 'delsuccess'.tr(), 'next'.tr(),
+          DialogType.success, AppColor.green);
+    }
     setBusy(false);
     notifyListeners();
   }
 
-  Future<void> DeleteFlashCard(String idFlashCard) async {
+  Future<void> DeleteFlashCard(BuildContext context, String idFlashCard) async {
     setBusy(true);
     flashCardData = await apiRequest.DELETE_FLASHCARD(idFlashCard: idFlashCard);
+    showDialog(context, 'dellibsuccess'.tr(), 'delsuccess'.tr(), 'next'.tr(),
+        DialogType.success, AppColor.green);
+
     setBusy(false);
     notifyListeners();
+  }
+
+  void showDialog(BuildContext context, String desc, String title,
+      String button, DialogType type, Color color) {
+    AwesomeDialog(
+      context: viewContext,
+      dialogType: type,
+      animType: AnimType.topSlide,
+      showCloseIcon: true,
+      title: title,
+      desc: desc,
+      btnOkColor: color,
+      btnOkOnPress: () {},
+      btnOkText: button,
+    ).show();
   }
 
   final Random _random = Random();
